@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" et-al-min="3" page-range-format="expanded" demote-non-dropping-particle="sort-only" default-locale="en-US">
-  <!-- This style was edited with the Visual CSL Editor (http://editor.citationstyles.org/visualEditor/) -->
   <info>
     <title>EM:RAP GO</title>
     <title-short>EM:RAP GO</title-short>
@@ -8,7 +7,7 @@
     <link href="http://www.zotero.org/styles/em-rap-go" rel="self"/>
     <link href="https://docs.google.com/document/d/15hm_grrUj61Z2kzpdRQ1TPhKy1T_3aV3bgi7lWFvUAk/edit" rel="documentation"/>
     <summary>AMA with modified Vancouver in text citations and alphabetical bibliography with PMID</summary>
-    <updated>2019-03-18T15:51:30+00:00</updated>
+    <updated>2019-03-20T02:20:06+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">
@@ -54,10 +53,13 @@
     <choose>
       <if type="article-newspaper" match="none">
         <choose>
-          <if variable="PMID">
-            <text value=" " display="block"/>
-            <text value="https://www.ncbi.nlm.nih.gov/pubmed/"/>
-            <text variable="PMID"/>
+          <if variable="DOI">
+            <choose>
+              <if match="none" variable="PMID">
+                <text value="doi:"/>
+                <text variable="DOI"/>
+              </if>
+            </choose>
           </if>
           <else-if variable="URL">
             <group delimiter=". ">
@@ -183,6 +185,10 @@
       </else>
     </choose>
   </macro>
+  <macro name="PMID">
+    <text value="https://www.ncbi.nlm.nih.gov/pubmed/"/>
+    <text variable="PMID"/>
+  </macro>
   <citation et-al-min="1" et-al-use-first="1" disambiguate-add-year-suffix="true" givenname-disambiguation-rule="primary-name" collapse="year">
     <sort>
       <key macro="author"/>
@@ -196,14 +202,14 @@
       </group>
     </layout>
   </citation>
-  <bibliography et-al-min="3" et-al-use-first="3" second-field-align="flush">
+  <bibliography et-al-min="3" et-al-use-first="3">
     <sort>
       <key macro="author"/>
       <key macro="title"/>
       <key variable="issued"/>
     </sort>
     <layout>
-      <text variable="citation-number" suffix=". "/>
+      <text variable="citation-number"/>
       <text macro="author"/>
       <text macro="title" prefix=" " suffix="."/>
       <choose>
@@ -330,6 +336,9 @@
         </else>
       </choose>
       <text prefix=" " macro="access" suffix="."/>
+      <group display="block">
+        <text macro="PMID"/>
+      </group>
     </layout>
   </bibliography>
 </style>
